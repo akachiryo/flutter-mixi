@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'first_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const FirstPage(),
     );
   }
 }
@@ -46,10 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-
-          ],
+          children: <Widget>[],
         ),
       ),
     );
