@@ -30,28 +30,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  String message = "初期値";
+
   void _incrementCounter() {
     setState(() {
       _counter++;
     });
   }
 
+  List food = ["寿司", "ステーキ", "パスタ"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-
-          ],
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-      ),
+        body: Center(
+          child: Column(
+            children: [
+              TextField(
+                onChanged: (v) {
+                  setState(() {
+                    message = v;
+                  });
+                }
+              ),
+              Text(message)
+            ],
+          )
+        )
     );
   }
 }
