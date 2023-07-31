@@ -1,57 +1,47 @@
+import './chat_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+// 中枢！main.dart の main() が最初に呼ばれる
+void main() async {
+  // token を読み込み
+  await dotenv.load(fileName: '.env');
+  // 下の MyApp を run するよ〜
   runApp(const MyApp());
 }
 
+// こちらが MyApp
+// Widget を使うよってことで Widget を extend したクラスを作る
+// StatelessWidget に関しては後で説明するよ！
 class MyApp extends StatelessWidget {
+  // コンストラクタ
+  // クラスが作られたときにクラス内で使う変数を初期化するためのもの
+  // 今回は変数がないのでデフォルトの Key のみ突っ込まれてる
+  // Key, super の説明は今回は省略
   const MyApp({super.key});
+
+  // もしクラスに変数があったらこんな感じでコンストラクタを書くよ
+  // ```
+  // const MyApp({Key? key, required this.hoge}) : super(key: key);
+  // final String hoge;
+  // ```
+  // 上の main() で `MyApp(hoge: "ほげりんちょ")` みたいに渡してあげると hoge には『ほげりんちょ』が代入される
+
+  // MaterialApp を作って返して表示させるよ！
+  // MaterialApp は Flutter アプリケーションの全体を管理するもので，全体のデザイン `theme: ` や
+  // 画面遷移をする場合の状態監視，最初に表示させるページ `home: ` を指定しているよ
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // OS のテーマ設定に合わせて変更できる
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.amber,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-
-          ],
-        ),
-      ),
+      // 最初に表示させるページをは下の MyHomePage
+      // 引数として title 渡してる（無くてもいいよ）
+      home: const ChatPage(title: 'Chat by ChatGPT'),
     );
   }
 }
