@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +19,16 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+}
+
+Future<void> getRepo() async {
+  final url = Uri.https('api.github.com', 'users/kno3a87/repos');
+  final response = await http.get(url);
+
+  print(response.body);
+
+  final List response2 = json.decode(response.body);
+  print(response2[0]);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -46,9 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-
+          children: [
+            Text('リクエストボタン'),
+            IconButton(
+                onPressed: () {
+                  getRepo();
+                },
+                icon: Icon(Icons.send))
           ],
         ),
       ),
